@@ -85,4 +85,14 @@ jobs:
       - name: Run Semgrep for Security Analysis
         run: |
           docker run --rm --volume "$PWD:/src" returntocorp/semgrep semgrep --config=p/ci .
-        
+
+  # 5. Slack Notification Job
+  notify:
+    runs-on: ubuntu-latest
+    needs: [build, unit-tests, lint, sast]  # Ensure this job runs after all previous jobs
+    steps:
+      - name: Notify Slack
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"CI Pipeline Status: All jobs have completed successfully!"}' \
+          https://hooks.slack.com/services/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

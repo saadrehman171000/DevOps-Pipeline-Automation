@@ -82,8 +82,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Semgrep
-        run: npm install semgrep --save-dev
-
       - name: Run Semgrep for Security Analysis
-        run: npx semgrep --config=p/ci .
+        run: |
+          docker run --rm --volume "$PWD:/src" returntocorp/semgrep --config=p/ci .

@@ -84,4 +84,4 @@ jobs:
 
       - name: Run Semgrep for Security Analysis
         run: |
-          docker run --rm --volume "$PWD:/src" returntocorp/semgrep --config=p/ci .
+          docker run --rm --volume "$PWD:/src" returntocorp/semgrep semgrep --config=p/ci .

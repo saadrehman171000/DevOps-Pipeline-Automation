@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-import { auth } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+import { auth } from '@clerk/nextjs/server';
 const prisma = new PrismaClient();
 
 async function checkAuth() {
@@ -11,14 +11,14 @@ async function checkAuth() {
 export async function POST(req: NextRequest) {
   const userId = await checkAuth();
   if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const { product, quantity, price, notes } = await req.json();
   console.log(product, quantity, price, notes);
   // add validation for the product, quantity, status, price
   if (!product || !quantity || !price || !notes) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }
 
   const order = await prisma.order.create({
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
       user_id: userId,
       product,
       quantity,
-      status: "Pending",
+      status: 'Pending',
       total: price * quantity,
       notes,
     },
@@ -38,11 +38,11 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const userId = await checkAuth();
   if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
+  const id = searchParams.get('id');
 
   if (id) {
     // Return a single order
@@ -51,7 +51,7 @@ export async function GET(req: NextRequest) {
     });
 
     if (!order) {
-      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+      return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
 
     return NextResponse.json(order);
@@ -68,14 +68,14 @@ export async function GET(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   const userId = await checkAuth();
   if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
+  const id = searchParams.get('id');
   if (!id) {
     return NextResponse.json(
-      { error: "Order ID is required" },
-      { status: 400 }
+      { error: 'Order ID is required' },
+      { status: 400 },
     );
   }
   const { product, quantity, status, total } = await req.json();
@@ -87,25 +87,25 @@ export async function PUT(req: NextRequest) {
 
   if (updatedOrder.count === 0) {
     return NextResponse.json(
-      { error: "Order not found or unauthorized" },
-      { status: 404 }
+      { error: 'Order not found or unauthorized' },
+      { status: 404 },
     );
   }
 
-  return NextResponse.json({ message: "Order updated successfully" });
+  return NextResponse.json({ message: 'Order updated successfully' });
 }
 
 export async function DELETE(req: NextRequest) {
   const userId = await checkAuth();
   if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
+  const id = searchParams.get('id');
   if (!id) {
     return NextResponse.json(
-      { error: "Order ID is required" },
-      { status: 400 }
+      { error: 'Order ID is required' },
+      { status: 400 },
     );
   }
 
@@ -115,10 +115,10 @@ export async function DELETE(req: NextRequest) {
 
   if (deletedOrder.count === 0) {
     return NextResponse.json(
-      { error: "Order not found or unauthorized" },
-      { status: 404 }
+      { error: 'Order not found or unauthorized' },
+      { status: 404 },
     );
   }
 
-  return NextResponse.json({ message: "Order deleted successfully" });
+  return NextResponse.json({ message: 'Order deleted successfully' });
 }

@@ -1,34 +1,53 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 type User = {
-  id: number
-  name: string
-  email: string
-  role: 'Admin' | 'User'
-}
+  id: number;
+  name: string;
+  email: string;
+  role: 'Admin' | 'User';
+};
 
 export function UserManagement() {
   const [users, setUsers] = useState<User[]>([
     { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin' },
     { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
-  ])
-  const [newUser, setNewUser] = useState<Omit<User, 'id'>>({ name: '', email: '', role: 'User' })
+  ]);
+  const [newUser, setNewUser] = useState<Omit<User, 'id'>>({
+    name: '',
+    email: '',
+    role: 'User',
+  });
 
   const handleCreateUser = () => {
-    setUsers([...users, { ...newUser, id: users.length + 1 }])
-    setNewUser({ name: '', email: '', role: 'User' })
-  }
+    setUsers([...users, { ...newUser, id: users.length + 1 }]);
+    setNewUser({ name: '', email: '', role: 'User' });
+  };
 
   const handleDeleteUser = (id: number) => {
-    setUsers(users.filter(user => user.id !== id))
-  }
+    setUsers(users.filter((user) => user.id !== id));
+  };
 
   return (
     <div>
@@ -39,25 +58,35 @@ export function UserManagement() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add New User</DialogTitle>
-            <DialogDescription>Enter the details for the new user.</DialogDescription>
+            <DialogDescription>
+              Enter the details for the new user.
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">Name</Label>
+              <Label htmlFor="name" className="text-right">
+                Name
+              </Label>
               <Input
                 id="name"
                 value={newUser.name}
-                onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                onChange={(e) =>
+                  setNewUser({ ...newUser, name: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="email" className="text-right">Email</Label>
+              <Label htmlFor="email" className="text-right">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
                 value={newUser.email}
-                onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                onChange={(e) =>
+                  setNewUser({ ...newUser, email: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
@@ -86,12 +115,17 @@ export function UserManagement() {
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.role}</TableCell>
               <TableCell>
-                <Button variant="destructive" onClick={() => handleDeleteUser(user.id)}>Delete</Button>
+                <Button
+                  variant="destructive"
+                  onClick={() => handleDeleteUser(user.id)}
+                >
+                  Delete
+                </Button>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }

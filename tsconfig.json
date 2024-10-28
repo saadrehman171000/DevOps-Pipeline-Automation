@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext", // Ensure modern syntax support
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ], // Support for DOM and modern JS features
+    "lib": ["dom", "dom.iterable", "esnext"], // Support for DOM and modern JS features
     "allowJs": true, // Allow JS files in your project
     "skipLibCheck": true, // Skip checking type definitions in node_modules
     "strict": true, // Enable strict type checking
@@ -19,12 +15,8 @@
     "incremental": true, // Enable incremental compilation for faster builds
     "baseUrl": ".", // Define base URL for module resolution
     "paths": {
-      "@/components/*": [
-        "components/*"
-      ], // Define paths for absolute imports
-      "@/lib/*": [
-        "lib/*"
-      ]
+      "@/components/*": ["components/*"], // Define paths for absolute imports
+      "@/lib/*": ["lib/*"]
     },
     "plugins": [
       {

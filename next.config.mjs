@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Disable SWC for compatibility in Docker builds
+  swcMinify: false, 
+
+  // Configure image optimization for remote sources
   images: {
     remotePatterns: [
       {
@@ -16,11 +20,20 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'i.pravatar.cc', // Add 'i.pravatar.cc' here as well
+        hostname: 'i.pravatar.cc',
         port: '',
         pathname: '/**',
       },
     ],
+  },
+
+  // Custom webpack configuration (if needed for specific builds)
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Ensure prisma is not bundled on the client side
+      config.resolve.fallback.fs = false;
+    }
+    return config;
   },
 };
 

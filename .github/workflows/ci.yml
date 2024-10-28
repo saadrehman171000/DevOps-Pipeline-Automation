@@ -31,20 +31,16 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Frontend Container
-        run: docker build -t saadrehman17100/textile-plm-digitalisation:latest -f Dockerfile .
+        run: docker build -t saadrehman17100/frontend:latest -f Dockerfile .
 
-      # Removed backend container build if not applicable
-      # If you need to build a backend, uncomment the lines below
-      # - name: Build Backend Container (if applicable)
-      #   run: docker build -t saadrehman17100/backend:latest -f Dockerfile .
+      - name: Build Backend Container (if applicable)
+        run: docker build -t saadrehman17100/backend:latest -f Dockerfile .
 
       - name: Push Frontend Image to DockerHub
-        run: docker push saadrehman17100/textile-plm-digitalisation:latest
+        run: docker push saadrehman17100/frontend:latest
 
-      # Removed backend image push if not applicable
-      # If you need to push a backend, uncomment the lines below
-      # - name: Push Backend Image to DockerHub
-      #   run: docker push saadrehman17100/backend:latest
+      - name: Push Backend Image to DockerHub
+        run: docker push saadrehman17100/backend:latest
 
   # 2. Run Unit Tests
   unit-tests:
@@ -77,7 +73,7 @@ jobs:
         run: npm install eslint --save-dev
 
       - name: Run ESLint
-        run: npx eslint ./ --ext .ts,.tsx
+        run: npx eslint ./ --ext .ts,.tsx --fix
 
   # 4. SAST Job (Semgrep)
   sast:

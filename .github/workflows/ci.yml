@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI Pipeline 
 
 on:
   push:
@@ -87,16 +87,13 @@ jobs:
           docker run --rm --volume "$PWD:/src" returntocorp/semgrep semgrep --config=p/ci .
 
   # 5. Slack Notification Job
-  # 5. Slack Notification Job
   notify:
     runs-on: ubuntu-latest
     needs: [build, lint, unit-tests, sast]  # Ensure this runs after the previous jobs
     steps:
       - name: Notify Slack
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Make sure to set this secret in your GitHub repository
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "CI Pipeline Notification: All jobs have completed successfully!",
             "channel": "C07U6RPDJAD"  # Replace with your channel ID
-          }' $SLACK_WEBHOOK_URL
+          }' https://hooks.slack.com/services/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

@@ -89,10 +89,13 @@ jobs:
   # 5. Slack Notification Job
   notify:
     runs-on: ubuntu-latest
-    needs: [build, unit-tests, lint, sast]  # Ensure this job runs after all previous jobs
+    needs: [build, lint, unit-tests, sast]  # Ensure this runs after the previous jobs
     steps:
       - name: Notify Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Ensure this secret is set in your GitHub repository
         run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"CI Pipeline Status: All jobs have completed successfully!"}' \
-          https://hooks.slack.com/services/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
+          curl -X POST -H 'Content-type: application/json' --data '{
+            "channel": "C07U6RPDJAD",
+            "text": "CI Pipeline Notification: All jobs have completed successfully!"
+          }' $SLACK_WEBHOOK_URL

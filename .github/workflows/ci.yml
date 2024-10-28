@@ -80,10 +80,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Check out the code
+        uses: actions/checkout@v3
 
       - name: Run Semgrep for Security Analysis
-      # Run Semgrep for static analysis using Docker
         run: |
-          docker run --rm --volume "$PWD:/src" returntocorp/semgrep --config=p/ci .  
+          docker run --rm --volume "$PWD:/src" returntocorp/semgrep semgrep --config=p/ci .
         

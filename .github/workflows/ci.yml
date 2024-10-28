@@ -95,4 +95,4 @@ jobs:
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "CI Pipeline Notification: All jobs have completed successfully!"
-          }' ${{ secrets.SLACK_WEBHOOK_URL }}
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}  # Use the secret

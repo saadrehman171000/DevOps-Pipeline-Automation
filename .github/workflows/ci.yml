@@ -1,4 +1,4 @@
-name: CI Pipeline 
+name: CI Pipeline
 
 on:
   push:
@@ -96,4 +96,4 @@ jobs:
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "CI Pipeline Notification: All jobs have completed successfully!",
             "channel": "C07U6RPDJAD"  # Replace with your channel ID
-          }' https://hooks.slack.com/services/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
+          }' https://hooks.slack.com/services/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

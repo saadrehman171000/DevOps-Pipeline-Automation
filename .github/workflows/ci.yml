@@ -19,20 +19,28 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Cache Docker Layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
       - name: Login to DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Frontend Container
-        run: docker build -t my-dockerhub-repo/frontend:latest -f Dockerfile .
+        run: docker build -t saadrehman17100/frontend:latest -f Dockerfile .
 
       - name: Build Backend Container (if applicable)
-        run: docker build -t my-dockerhub-repo/backend:latest -f Dockerfile .
+        run: docker build -t saadrehman17100/backend:latest -f Dockerfile .
 
       - name: Push Frontend Image to DockerHub
-        run: docker push my-dockerhub-repo/frontend:latest
+        run: docker push saadrehman17100/frontend:latest
 
       - name: Push Backend Image to DockerHub
-        run: docker push my-dockerhub-repo/backend:latest
+        run: docker push saadrehman17100/backend:latest
 
   # 2. Run Unit Tests
   unit-tests:
@@ -46,7 +54,13 @@ jobs:
         run: npm install
 
       - name: Run Unit Tests
-        run: npm test
+        run: npm test -- --json --outputFile=test-results.json
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results.json
 
   # 3. Linter Job (ESLint)
   lint:
@@ -70,4 +84,3 @@ jobs:
 
       - name: Run Semgrep for Security Analysis
         run: semgrep --config=p/ci .
-

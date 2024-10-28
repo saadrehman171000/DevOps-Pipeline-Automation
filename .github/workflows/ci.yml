@@ -76,15 +76,15 @@ jobs:
         run: npx eslint ./ --ext .ts,.tsx --fix
 
   # 4. SAST Job (Semgrep)
- sast:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install Semgrep
-      run: |
-        curl -sSL https://get.semgrep.dev | bash
-    
-    - name: Run Semgrep for Security Analysis
-      run: semgrep --config=p/ci .
+      - name: Install Semgrep
+        run: |
+          curl -sSL https://get.semgrep.dev | bash
+
+      - name: Run Semgrep for Security Analysis
+        run: semgrep --config=p/ci .

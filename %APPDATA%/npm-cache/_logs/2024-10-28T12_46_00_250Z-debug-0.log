@@ -5,15 +5,15 @@
 4 silly config load:file:E:\Saad Rehman-GitHub\DevOps-Pipeline-Automation\.npmrc
 5 silly config load:file:C:\Users\saadr\.npmrc
 6 silly config load:file:C:\Users\saadr\AppData\Roaming\npm\etc\npmrc
-7 verbose title npm exec eslint app/**/*.{ts,tsx} components/**/*.{ts,tsx} --fix
-8 verbose argv "exec" "--" "eslint" "app/**/*.{ts,tsx}" "components/**/*.{ts,tsx}" "--fix"
-9 verbose logfile logs-max:10 dir:E:\Saad Rehman-GitHub\DevOps-Pipeline-Automation\%APPDATA%\npm-cache\_logs\2024-10-28T11_49_51_420Z-
-10 verbose logfile E:\Saad Rehman-GitHub\DevOps-Pipeline-Automation\%APPDATA%\npm-cache\_logs\2024-10-28T11_49_51_420Z-debug-0.log
+7 verbose title npm run test
+8 verbose argv "run" "test"
+9 verbose logfile logs-max:10 dir:E:\Saad Rehman-GitHub\DevOps-Pipeline-Automation\%APPDATA%\npm-cache\_logs\2024-10-28T12_46_00_250Z-
+10 verbose logfile E:\Saad Rehman-GitHub\DevOps-Pipeline-Automation\%APPDATA%\npm-cache\_logs\2024-10-28T12_46_00_250Z-debug-0.log
 11 silly logfile start cleaning logs, removing 1 files
 12 silly logfile done cleaning log files
 13 verbose cwd E:\Saad Rehman-GitHub\DevOps-Pipeline-Automation
 14 verbose os Windows_NT 10.0.22631
 15 verbose node v22.3.0
 16 verbose npm  v10.8.1
-17 verbose exit 1
-18 verbose code 1
+17 verbose exit 0
+18 info ok

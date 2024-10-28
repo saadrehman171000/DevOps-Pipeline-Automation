@@ -95,4 +95,4 @@ jobs:
         run: |
           curl -X POST -H 'Content-type: application/json' --data '{
             "text": "CI Pipeline Notification: All jobs have completed successfully!"
-          }' https://hooks.slack.com/services/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
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}
